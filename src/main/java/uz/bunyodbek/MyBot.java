@@ -21,12 +21,28 @@ public class MyBot extends TelegramLongPollingBot {
             myDatabase.create(user);
 
             if (text.equals("/start")) {
-
                 try {
-                    execute(myBotService.sendMessage(chatId));
+//                    execute(myBotService.sendMessage(chatId));
+                    execute(myBotService.jdbcMenu(chatId));
                 } catch (TelegramApiException e) {
                     throw new RuntimeException(e);
                 }
+            }
+
+            if (text.equals("Create")) {
+                myDatabase.create(user);
+            }
+
+            if (text.equals("Read")) {
+                myDatabase.read(user);
+            }
+
+            if (text.equals("Update")) {
+                myDatabase.update(user);
+            }
+
+            if (text.equals("Delete")) {
+                myDatabase.delete(user);
             }
 
         }

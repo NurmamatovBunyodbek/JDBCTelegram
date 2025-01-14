@@ -22,6 +22,7 @@ public class MyDatabase {
             String query = "insert into message(chatid , text) values (" + user.getId() + ", '" + user.getText() + "');";
 
             statement.execute(query);
+            System.out.println("Message created");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -29,5 +30,56 @@ public class MyDatabase {
 
     }
 
+    public void read(User user) {
+
+        try {
+            Connection connection = DriverManager.getConnection(urlDatabase, usernameDatabase, password);
+
+            Statement statement = connection.createStatement();
+            String query = "select * from message where chatid = '" + user.getId() + "';";
+
+            statement.executeQuery(query);
+            System.out.println("Message read");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void update(User user) {
+        try {
+            Connection connection = DriverManager.getConnection(urlDatabase, usernameDatabase, password);
+
+            Statement statement = connection.createStatement();
+
+            String query = "update message set text = '" + user.getText() + "' where chatid = '" + user.getId() + "';";
+
+            statement.executeUpdate(query);
+            System.out.println("Message updated");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void delete(User user) {
+
+        try {
+            Connection connection = DriverManager.getConnection(urlDatabase, usernameDatabase, password);
+
+            Statement statement = connection.createStatement();
+
+            String query = "delete from message where chatid = '" + user.getId() + "';";
+
+            statement.executeUpdate(query);
+            System.out.println("Message deleted");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
